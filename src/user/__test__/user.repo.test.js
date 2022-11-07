@@ -22,6 +22,8 @@ describe("UserRepoTest", () => {
       expect(result.fullname).toBe(testData.fullname);
       expect(result.email).toBe(testData.email);
       expect(result.password).toBe(testData.password);
+
+      testData.id = result.userId;
     });
 
     it("should return error", async function () {
@@ -35,7 +37,7 @@ describe("UserRepoTest", () => {
   describe("test getUser", () => {
     it("should get user for the given id", async () => {
       // user with id 1 was already created in 'should create new user' test
-      const result = await getUser({ userId: 1 });
+      const result = await getUser({ userId: testData.id });
 
       expect(result.fullname).toBe(testData.fullname);
       expect(result.email).toBe(testData.email);
@@ -56,7 +58,7 @@ describe("UserRepoTest", () => {
   describe("test getUserProfile", () => {
     it("should return a user object for the given id", async () => {
       // user with id 1 was already created in 'should create new user' test
-      const result = await getUserProfile({ userId: 1 });
+      const result = await getUserProfile({ userId: testData.id });
 
       expect(result.fullname).toBe(testData.fullname);
       expect(result.email).toBe(testData.email);
@@ -66,7 +68,7 @@ describe("UserRepoTest", () => {
 
   describe("test updateUser", () => {
     it("should update the user with the given values", async () => {
-      const user = await getUser({ userId: 1 });
+      const user = await getUser({ userId: testData.id });
       const newValues = {
         userId: user.userId,
         fullname: "new name",
@@ -85,7 +87,7 @@ describe("UserRepoTest", () => {
 
   describe("test updatePassword", () => {
     it("should update the user with the password", async () => {
-      const user = await getUser({ userId: 1 });
+      const user = await getUser({ userId: testData.id });
       const newPassword = "n3wPassword!";
 
       await updatePassword({ userId: user.userId, password: newPassword });
@@ -95,4 +97,3 @@ describe("UserRepoTest", () => {
     });
   });
 });
-
