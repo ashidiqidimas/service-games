@@ -31,7 +31,7 @@ describe("room.repo.test", () => {
       const result = await roomRepo.findRoom(1);
 
       expect(result.roomName).toBe("room test");
-      expect(result.id).toBe(testData.hostUserId);
+      expect(result.hostUserId).toBe(testData.hostUserId);
     });
   });
 
@@ -87,11 +87,10 @@ describe("room.repo.test", () => {
 
   describe('test getAllRoom', () => {
     it('should return an array of room', async () => {
-      const expectedRoom = await roomRepo.findRoom(1)
-
       const result = await roomRepo.getAllRoom()
 
-      expect(result[0]).toStrictEqual(expectedRoom);
+      expect(result[0].roomName).toBeTruthy();
+      expect(result[0].roomCode).toBeTruthy();
     });
   });
 });
